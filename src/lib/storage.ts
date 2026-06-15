@@ -1,4 +1,4 @@
-import type { RatesCache, Settings } from './types';
+import type { RatesCache, Settings, TrendCache } from './types';
 
 export const DEFAULT_SETTINGS: Settings = {
   selectedCurrencies: ['EUR', 'GBP', 'HKD', 'USD'],
@@ -25,4 +25,13 @@ export async function getCache(): Promise<RatesCache | null> {
 
 export async function setCache(cache: RatesCache): Promise<void> {
   await chrome.storage.local.set({ ratesCache: cache });
+}
+
+export async function getTrendCache(): Promise<TrendCache | null> {
+  const { trendCache } = await chrome.storage.local.get('trendCache');
+  return (trendCache as TrendCache | undefined) ?? null;
+}
+
+export async function setTrendCache(cache: TrendCache): Promise<void> {
+  await chrome.storage.local.set({ trendCache: cache });
 }

@@ -7,6 +7,7 @@ A Chrome extension (Manifest V3) that shows the Bank of China foreign-exchange b
 ## 功能 Features
 
 - 📊 实时展示中行外汇牌价（现汇/现钞买入卖出价、中行折算价）
+- 📈 每张卡片内嵌近 30 天市场参考走势 sparkline + 涨跌幅
 - 🎯 在插件图标角标上固定显示一个你关心的汇率
 - 🔔 汇率突破上限/下限时通知（边沿触发，不刷屏）
 - ⚙️ 自由选择展示币种与更新频率（10 分钟 ~ 2 小时）
@@ -15,9 +16,9 @@ A Chrome extension (Manifest V3) that shows the Bank of China foreign-exchange b
 
 ## 数据来源 Data source
 
-数据解析自中国银行官方外汇牌价页面
-[`www.boc.cn/sourcedb/whpj`](https://www.boc.cn/sourcedb/whpj/)。
-扩展直接抓取该页面 HTML 并在本地解析，不经过任何第三方服务器。
+- **牌价（卡片数值）**：解析自中国银行官方外汇牌价页面
+  [`www.boc.cn/sourcedb/whpj`](https://www.boc.cn/sourcedb/whpj/)，扩展直接抓取该页面 HTML 并在本地解析，不经过任何第三方服务器。
+- **走势线（sparkline）**：取自 [frankfurter.dev](https://frankfurter.dev)（欧洲央行参考汇率）。这是**市场参考价**，与中行牌价走势相近但绝对数值略有差异；其中 AED、MOP、RUB、SAR、TWD 不在该数据源覆盖范围，故不显示走势。
 
 ## 技术栈 Tech stack
 

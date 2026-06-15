@@ -1,4 +1,5 @@
 import { fetchRates } from '@/lib/boc';
+import { getTrends } from '@/lib/trend';
 import { getSettings, getCache, setCache } from '@/lib/storage';
 import { currencyName, CURRENCY_EMOJI } from '@/lib/currencies';
 import type { RatesMap, Settings, WorkerMessage, WorkerResponse } from '@/lib/types';
@@ -14,6 +15,9 @@ async function refreshRates(): Promise<void> {
   const settings = await getSettings();
   await updateBadge(rates, settings);
   await checkThresholds(rates, settings);
+
+  // Keep the market-trend cache warm; self-throttled and never fatal.
+  await getTrends(settings.selectedCurrencies).catch(() => {});
 }
 
 function formatBadge(rate: number): string {

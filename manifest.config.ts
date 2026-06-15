@@ -8,7 +8,7 @@ export default defineManifest({
   version: pkg.version,
   default_locale: 'zh_CN',
   permissions: ['alarms', 'storage', 'notifications'],
-  host_permissions: ['https://www.boc.cn/'],
+  host_permissions: ['https://www.boc.cn/', 'https://api.frankfurter.dev/'],
   background: {
     service_worker: 'src/background/service-worker.ts',
     type: 'module',

@@ -23,6 +23,10 @@
   "noData": {
     "message": "暂无汇率数据，点击刷新重试"
   },
+  "trendNote": {
+    "message": "迷你走势为近 30 天市场参考价（数据 frankfurter.dev / 欧洲央行），与中行牌价走势相近，绝对数值略有差异。",
+    "description": "Footer note clarifying the sparkline data source."
+  },
   "selectCurrency": {
     "message": "展示币种"
   },

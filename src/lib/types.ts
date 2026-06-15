@@ -37,6 +37,21 @@ export interface RatesCache {
   fetchedAt: number;
 }
 
+/** One point on a currency's market-rate trend line. */
+export interface TrendPoint {
+  /** ISO date, e.g. "2026-06-15". */
+  t: string;
+  /** CNY per 1 unit of the foreign currency (market reference rate). */
+  v: number;
+}
+
+/** Cached trend series (market reference rates), persisted in storage.local. */
+export interface TrendCache {
+  fetchedAt: number;
+  days: number;
+  series: Record<string, TrendPoint[]>;
+}
+
 /** Messages exchanged between UI pages and the service worker. */
 export type WorkerMessage = 'manual-refresh' | 'refresh-badge';
 export interface WorkerResponse {
