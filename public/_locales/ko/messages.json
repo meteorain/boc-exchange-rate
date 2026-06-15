@@ -1,4 +1,9 @@
 {
+  "rangeEndLow": { "message": "저" },
+  "rangeEndHigh": { "message": "고" },
+  "rangeLowPos": { "message": "저점권" },
+  "rangeMidPos": { "message": "중간" },
+  "rangeHighPos": { "message": "고점권" },
   "openSidePanel": { "message": "사이드 패널에서 열기" },
   "moveUp": { "message": "상승" },
   "moveDown": { "message": "하락" },

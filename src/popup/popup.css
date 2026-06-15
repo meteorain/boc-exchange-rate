@@ -530,14 +530,21 @@ body[data-surface='panel'] {
 .range {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   margin-top: 10px;
+  cursor: default;
+}
+
+.range__end {
+  flex-shrink: 0;
+  font-size: 10px;
+  color: var(--text-muted);
 }
 
 .range__track {
   position: relative;
   flex: 1;
-  height: 4px;
+  height: 5px;
   border-radius: 999px;
   background: var(--surface-2);
 }
@@ -551,25 +558,25 @@ body[data-surface='panel'] {
   background: var(--accent-soft);
 }
 
-.range__marker {
+/* A thin vertical tick — reads as a read-only marker, not a draggable knob. */
+.range__tick {
   position: absolute;
-  top: 50%;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+  top: -2px;
+  width: 2px;
+  height: 9px;
+  border-radius: 1px;
   background: var(--accent);
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 0 2px var(--surface);
+  transform: translateX(-50%);
 }
 
 .range__cap {
   flex-shrink: 0;
-  width: 34px;
   text-align: right;
   font-size: 10px;
   font-weight: 600;
   color: var(--text-muted);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 /* ---- hover tooltip ---- */

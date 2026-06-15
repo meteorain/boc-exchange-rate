@@ -1,4 +1,9 @@
 {
+  "rangeEndLow": { "message": "tief" },
+  "rangeEndHigh": { "message": "hoch" },
+  "rangeLowPos": { "message": "niedrig" },
+  "rangeMidPos": { "message": "mittel" },
+  "rangeHighPos": { "message": "hoch" },
   "openSidePanel": { "message": "In Seitenleiste öffnen" },
   "moveUp": { "message": "gestiegen um" },
   "moveDown": { "message": "gefallen um" },

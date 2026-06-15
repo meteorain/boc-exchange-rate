@@ -1,4 +1,9 @@
 {
+  "rangeEndLow": { "message": "安" },
+  "rangeEndHigh": { "message": "高" },
+  "rangeLowPos": { "message": "安値圏" },
+  "rangeMidPos": { "message": "中位" },
+  "rangeHighPos": { "message": "高値圏" },
   "openSidePanel": { "message": "サイドパネルで開く" },
   "moveUp": { "message": "上昇" },
   "moveDown": { "message": "下落" },

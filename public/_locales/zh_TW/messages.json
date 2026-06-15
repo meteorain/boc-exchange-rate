@@ -1,4 +1,9 @@
 {
+  "rangeEndLow": { "message": "低" },
+  "rangeEndHigh": { "message": "高" },
+  "rangeLowPos": { "message": "偏低" },
+  "rangeMidPos": { "message": "適中" },
+  "rangeHighPos": { "message": "偏高" },
   "openSidePanel": { "message": "在側邊欄開啟" },
   "moveUp": { "message": "上漲" },
   "moveDown": { "message": "下跌" },

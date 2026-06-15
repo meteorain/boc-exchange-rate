@@ -1,4 +1,19 @@
 {
+  "rangeEndLow": {
+    "message": "Lo"
+  },
+  "rangeEndHigh": {
+    "message": "Hi"
+  },
+  "rangeLowPos": {
+    "message": "low"
+  },
+  "rangeMidPos": {
+    "message": "mid"
+  },
+  "rangeHighPos": {
+    "message": "high"
+  },
   "openSidePanel": {
     "message": "Open in side panel"
   },

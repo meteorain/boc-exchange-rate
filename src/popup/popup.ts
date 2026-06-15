@@ -121,8 +121,9 @@ function fmtScaled(v: number): string {
   return s >= 100 ? s.toFixed(2) : s.toFixed(4);
 }
 
-function showTip(anchor: Element, p: TrendPoint): void {
-  tip.textContent = `${p.t} · ${fmtScaled(p.v)}`;
+/** Position the custom tooltip above (or below, near the top) an element. */
+function showText(anchor: Element, text: string): void {
+  tip.textContent = text;
   tip.hidden = false;
   const a = anchor.getBoundingClientRect();
   const t = tip.getBoundingClientRect();
@@ -130,6 +131,10 @@ function showTip(anchor: Element, p: TrendPoint): void {
   const top = a.top - t.height - 6;
   tip.style.left = `${left}px`;
   tip.style.top = `${top < 4 ? a.bottom + 6 : top}px`;
+}
+
+function showTip(anchor: Element, p: TrendPoint): void {
+  showText(anchor, `${p.t} · ${fmtScaled(p.v)}`);
 }
 
 const hideTip = (): void => {
@@ -226,23 +231,36 @@ function rangeCell(points: TrendPoint[]): HTMLElement | null {
 
   const wrap = document.createElement('div');
   wrap.className = 'range';
-  wrap.title = `${chrome.i18n.getMessage('rangeLow')} ${fmtScaled(min)} · ${chrome.i18n.getMessage('rangeHigh')} ${fmtScaled(max)}`;
+  const tipText = `${chrome.i18n.getMessage('rangeLow')} ${fmtScaled(min)} · ${chrome.i18n.getMessage('rangeHigh')} ${fmtScaled(max)}`;
+  wrap.setAttribute('aria-label', tipText);
+  wrap.addEventListener('mouseenter', () => showText(wrap, tipText));
+  wrap.addEventListener('mouseleave', hideTip);
+
+  const lowEnd = document.createElement('span');
+  lowEnd.className = 'range__end';
+  lowEnd.textContent = chrome.i18n.getMessage('rangeEndLow');
 
   const track = document.createElement('div');
   track.className = 'range__track';
   const fill = document.createElement('div');
   fill.className = 'range__fill';
   fill.style.width = `${pos}%`;
-  const marker = document.createElement('div');
-  marker.className = 'range__marker';
-  marker.style.left = `${pos}%`;
-  track.append(fill, marker);
+  const tick = document.createElement('i');
+  tick.className = 'range__tick';
+  tick.style.left = `${pos}%`;
+  track.append(fill, tick);
 
+  const highEnd = document.createElement('span');
+  highEnd.className = 'range__end';
+  highEnd.textContent = chrome.i18n.getMessage('rangeEndHigh');
+
+  // Plain-language read of the position: low / mid / high.
+  const qualKey = pos < 33 ? 'rangeLowPos' : pos > 67 ? 'rangeHighPos' : 'rangeMidPos';
   const cap = document.createElement('span');
   cap.className = 'range__cap';
-  cap.textContent = `${pos}%`;
+  cap.textContent = `${chrome.i18n.getMessage(qualKey)} ${pos}%`;
 
-  wrap.append(track, cap);
+  wrap.append(lowEnd, track, highEnd, cap);
   return wrap;
 }
 

@@ -1,4 +1,9 @@
 {
+  "rangeEndLow": { "message": "мин" },
+  "rangeEndHigh": { "message": "макс" },
+  "rangeLowPos": { "message": "низко" },
+  "rangeMidPos": { "message": "средне" },
+  "rangeHighPos": { "message": "высоко" },
   "openSidePanel": { "message": "Открыть на боковой панели" },
   "moveUp": { "message": "вырос на" },
   "moveDown": { "message": "упал на" },

@@ -1,4 +1,9 @@
 {
+  "rangeEndLow": { "message": "mín" },
+  "rangeEndHigh": { "message": "máx" },
+  "rangeLowPos": { "message": "bajo" },
+  "rangeMidPos": { "message": "medio" },
+  "rangeHighPos": { "message": "alto" },
   "openSidePanel": { "message": "Abrir en el panel lateral" },
   "moveUp": { "message": "subió" },
   "moveDown": { "message": "bajó" },

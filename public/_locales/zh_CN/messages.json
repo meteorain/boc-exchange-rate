@@ -1,4 +1,19 @@
 {
+  "rangeEndLow": {
+    "message": "低"
+  },
+  "rangeEndHigh": {
+    "message": "高"
+  },
+  "rangeLowPos": {
+    "message": "偏低"
+  },
+  "rangeMidPos": {
+    "message": "适中"
+  },
+  "rangeHighPos": {
+    "message": "偏高"
+  },
   "openSidePanel": {
     "message": "在侧边栏打开"
   },
