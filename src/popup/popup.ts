@@ -1,7 +1,7 @@
 import './popup.css';
 import { getCache, getSettings, setSettings } from '@/lib/storage';
 import { getTrends, trendSupported, windowed, TREND_WINDOWS } from '@/lib/trend';
-import { initConverter } from './converter';
+import { initConverter, refreshConverter } from './converter';
 import { applyTheme } from '@/lib/theme';
 import { currencyName, rateTypeName, RATE_TYPES } from '@/lib/currencies';
 import type { CurrencyRate, RateType, TrendPoint, WorkerResponse } from '@/lib/types';
@@ -306,6 +306,7 @@ async function refresh(): Promise<void> {
   } finally {
     refreshBtn.classList.remove('is-loading');
     await render();
+    void refreshConverter(); // keep an open converter in sync with new rates
   }
 }
 

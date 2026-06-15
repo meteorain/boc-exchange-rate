@@ -54,6 +54,15 @@
   "convSwap": {
     "message": "Swap direction"
   },
+  "convSpread": {
+    "message": "spread"
+  },
+  "convCross": {
+    "message": "cross rate"
+  },
+  "convCopy": {
+    "message": "Copy result"
+  },
   "convNoQuote": {
     "message": "No quote for this direction"
   },

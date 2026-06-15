@@ -54,6 +54,15 @@
   "convSwap": {
     "message": "切换换算方向"
   },
+  "convSpread": {
+    "message": "点差"
+  },
+  "convCross": {
+    "message": "交叉汇率"
+  },
+  "convCopy": {
+    "message": "复制结果"
+  },
   "convNoQuote": {
     "message": "该币种暂无此方向报价"
   },

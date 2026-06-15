@@ -211,19 +211,33 @@ body {
   margin-bottom: 12px;
 }
 
-.conv__currency {
-  width: auto;
-  flex: 1;
-  max-width: 190px;
-  padding: 7px 10px;
-  font-size: 12px;
+.conv__quick {
+  display: flex;
+  gap: 6px;
 }
 
-.conv__give,
-.conv__get {
+.conv__chip {
+  padding: 3px 9px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.conv__chip:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.conv__io {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   padding: 10px 12px;
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -233,6 +247,7 @@ body {
 .conv__amount {
   flex: 1;
   width: 100%;
+  min-width: 0;
   border: none;
   background: transparent;
   color: var(--text);
@@ -255,6 +270,7 @@ body {
 
 .conv__out {
   flex: 1;
+  min-width: 0;
   font-size: 19px;
   font-weight: 700;
   color: var(--accent);
@@ -264,11 +280,48 @@ body {
   text-overflow: ellipsis;
 }
 
-.conv__unit {
+.conv__cur {
   flex-shrink: 0;
-  font-size: 12px;
+  max-width: 150px;
+  padding: 4px 2px;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 13px;
   font-weight: 600;
+  cursor: pointer;
+}
+
+.conv__cur:focus {
+  outline: none;
+}
+
+.conv__copy {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
   color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.conv__copy:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.conv__copy.is-copied {
+  color: var(--down);
+}
+
+.segbar.is-muted {
+  opacity: 0.45;
+  pointer-events: none;
 }
 
 .conv__swap {
