@@ -1,5 +1,5 @@
 import './options.css';
-import { getCache, getSettings, setSettings } from '@/lib/storage';
+import { getCache, getSettings, setSettings, DEFAULT_SETTINGS } from '@/lib/storage';
 import { applyTheme, type Theme } from '@/lib/theme';
 import {
   currencyName,
@@ -147,12 +147,12 @@ function renderOrder(): void {
     pill.addEventListener('dragleave', () => pill.classList.remove('is-over'));
     pill.addEventListener('drop', (e) => {
       e.preventDefault();
-      const to = selected.indexOf(code);
-      if (dragIndex > -1 && dragIndex !== to) {
-        const [moved] = selected.splice(dragIndex, 1);
-        selected.splice(to, 0, moved);
-        renderOrder();
-      }
+      // Insert the dragged item *before* the drop target. Recompute the target
+      // index after removal so moving downward doesn't land one slot off.
+      if (dragIndex < 0 || selected[dragIndex] === code) return;
+      const [moved] = selected.splice(dragIndex, 1);
+      selected.splice(selected.indexOf(code), 0, moved);
+      renderOrder();
     });
 
     orderBox.append(pill);
@@ -235,21 +235,23 @@ function showToast(message: string): void {
 }
 
 async function save(): Promise<void> {
-  const badgeRateType = (
-    badgeRateTypeBox.querySelector('input:checked') as HTMLInputElement
-  ).value as RateType;
-  const updateFrequency = Number(
-    (frequencyBox.querySelector('input:checked') as HTMLInputElement).value,
-  );
+  const badgeRateType = (badgeRateTypeBox.querySelector('input:checked') as HTMLInputElement | null)
+    ?.value as RateType | undefined;
+  const freqChecked = (frequencyBox.querySelector('input:checked') as HTMLInputElement | null)?.value;
+
+  const movePercent_ = Number(movePercent.value);
 
   await setSettings({
     selectedCurrencies: selected,
     badgeCurrency: badgeCurrencySel.value,
-    badgeRateType,
-    updateFrequency,
+    badgeRateType: badgeRateType ?? DEFAULT_SETTINGS.badgeRateType,
+    updateFrequency: freqChecked ? Number(freqChecked) : DEFAULT_SETTINGS.updateFrequency,
     thresholds: collectThresholds(),
     dailySummary: { enabled: summaryOn.checked, time: summaryTime.value || '10:00' },
-    moveAlert: { enabled: moveOn.checked, percent: Number(movePercent.value) || 1 },
+    moveAlert: {
+      enabled: moveOn.checked,
+      percent: Number.isFinite(movePercent_) && movePercent_ > 0 ? movePercent_ : 1,
+    },
     extremeAlert: { enabled: extremeOn.checked, days: Number(extremeDays.value) || 30 },
   });
 

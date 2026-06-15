@@ -1,16 +1,8 @@
 import { getCache, getSettings } from '@/lib/storage';
 import { currencyName, rateTypeName } from '@/lib/currencies';
-import type { RatesMap, RateType } from '@/lib/types';
+import { convert, spreadPct, CNY } from '@/lib/convert';
+import type { RatesMap } from '@/lib/types';
 
-/**
- * Converter with the correct board column for each trade:
- * - foreign → CNY uses the bank's buying rate (现汇/现钞买入价)
- * - CNY → foreign uses the selling rate (现汇/现钞卖出价)
- * - foreign → foreign is a cross rate via the middle rate (中行折算价)
- * BOC quotes per 100 units, handled here.
- */
-
-const CNY = 'CNY';
 const QUICK = [100, 1000, 10000];
 const msg = (k: string): string => chrome.i18n.getMessage(k);
 
@@ -90,58 +82,37 @@ export async function initConverter(): Promise<void> {
     const amt = Number(amount.value);
     cashBar.classList.toggle('is-muted', fromCode !== CNY && toCode !== CNY);
 
+    // Empty/invalid input: blank result, no "no quote" message.
     if (!Number.isFinite(amt)) {
       out.textContent = '—';
       rateLine.textContent = '';
       return;
     }
-    if (fromCode === toCode) {
-      out.textContent = format(amt);
-      rateLine.textContent = '';
+
+    const res = convert(rates, fromCode, toCode, amt, cash);
+    if (res.value == null) {
+      out.textContent = '—';
+      rateLine.textContent = msg('convNoQuote');
       return;
     }
 
-    let result: number | null = null;
-    let detail = '';
-
-    if (toCode === CNY) {
-      // Sell foreign to the bank → buying rate.
-      const type: RateType = cash ? 'CBR' : 'BR';
-      const rate = rates[fromCode]?.[type] ?? null;
-      if (rate != null) {
-        result = (amt * rate) / 100;
-        detail = `${rateTypeName(type)} ${rate}${spread(fromCode)}`;
-      }
-    } else if (fromCode === CNY) {
-      // Buy foreign from the bank → selling rate.
-      const type: RateType = cash ? 'CSR' : 'SR';
-      const rate = rates[toCode]?.[type] ?? null;
-      if (rate != null) {
-        result = (amt * 100) / rate;
-        detail = `${rateTypeName(type)} ${rate}${spread(toCode)}`;
-      }
+    out.textContent = format(res.value);
+    if (res.cross) {
+      rateLine.textContent = `${msg('convCross')} · ${rateTypeName('MR')}`;
+    } else if (res.rateType && res.rate != null) {
+      const foreign = toCode === CNY ? fromCode : toCode;
+      const sp = spreadPct(rates, foreign);
+      const tail = sp != null ? ` · ${msg('convSpread')} ${sp.toFixed(2)}%` : '';
+      rateLine.textContent = `${rateTypeName(res.rateType)} ${res.rate}${tail}`;
     } else {
-      // Cross rate via each currency's middle rate.
-      const mf = rates[fromCode]?.MR ?? null;
-      const mt = rates[toCode]?.MR ?? null;
-      if (mf != null && mt != null) {
-        result = (amt * mf) / mt;
-        detail = `${msg('convCross')} · ${rateTypeName('MR')}`;
-      }
-    }
-
-    if (result == null) {
-      out.textContent = '—';
-      rateLine.textContent = msg('convNoQuote');
-    } else {
-      out.textContent = format(result);
-      rateLine.textContent = detail;
+      rateLine.textContent = ''; // same currency
     }
   };
 
   copy.addEventListener('click', () => {
     if (out.textContent && out.textContent !== '—') {
-      void navigator.clipboard?.writeText(out.textContent);
+      // Strip the grouping commas so the copied text is a clean number.
+      void navigator.clipboard?.writeText(out.textContent.replace(/,/g, ''));
       copy.classList.add('is-copied');
       setTimeout(() => copy.classList.remove('is-copied'), 1200);
     }
@@ -157,14 +128,6 @@ export async function initConverter(): Promise<void> {
 
   buildCashBar();
   recompute();
-}
-
-/** Percentage spread between the foreign currency's buy and sell rates. */
-function spread(code: string): string {
-  const r = rates[code];
-  if (!r || r.BR == null || r.SR == null || r.BR === 0) return '';
-  const pct = ((r.SR - r.BR) / r.BR) * 100;
-  return ` · ${msg('convSpread')} ${pct.toFixed(2)}%`;
 }
 
 /** Re-read the latest rates after a manual refresh, if the converter is open. */

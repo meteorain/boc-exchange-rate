@@ -10,6 +10,7 @@ import {
 } from '@/lib/history';
 import { getSettings, getCache, setCache } from '@/lib/storage';
 import { currencyName, CURRENCY_EMOJI } from '@/lib/currencies';
+import { formatBadge } from '@/lib/format';
 import type { RatesMap, Settings, WorkerMessage, WorkerResponse } from '@/lib/types';
 
 const ALARM_NAME = 'fetchExchangeRates';
@@ -32,12 +33,6 @@ async function refreshRates(): Promise<void> {
 
   // Keep the market-trend cache warm; self-throttled and never fatal.
   await getTrends(settings.selectedCurrencies).catch(() => {});
-}
-
-function formatBadge(rate: number): string {
-  if (rate >= 1000) return Math.round(rate).toString();
-  // Keep it to ~4 glyphs so it stays legible on the icon.
-  return rate.toFixed(rate >= 100 ? 0 : 2).slice(0, 4);
 }
 
 async function updateBadge(

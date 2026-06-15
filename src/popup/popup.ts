@@ -367,6 +367,15 @@ void render();
 
 refreshBtn.addEventListener('click', () => void refresh());
 document.getElementById('empty-refresh')?.addEventListener('click', () => void refresh());
+
+// Live-update when the worker writes new rates — matters most for the
+// persistent side panel, which would otherwise show stale data.
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area === 'local' && changes.ratesCache) {
+    void render();
+    void refreshConverter();
+  }
+});
 document
   .getElementById('options')
   ?.addEventListener('click', () => chrome.runtime.openOptionsPage());
