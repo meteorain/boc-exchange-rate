@@ -256,6 +256,12 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* Time inputs need extra room for the native clock icon, or the last
+   digit gets clipped. */
+input[type='time'].mini-input {
+  width: 112px;
+}
+
 .mini-input:focus {
   outline: none;
   border-color: var(--accent);

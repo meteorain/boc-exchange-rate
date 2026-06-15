@@ -27,6 +27,12 @@
     "message": "Sparkline shows the market reference rate (data: frankfurter.dev / ECB). Its shape tracks the BOC board closely; absolute values differ slightly.",
     "description": "Footer note clarifying the sparkline data source."
   },
+  "rangeLow": {
+    "message": "Low"
+  },
+  "rangeHigh": {
+    "message": "High"
+  },
   "win30": {
     "message": "30D"
   },

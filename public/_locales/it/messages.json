@@ -8,6 +8,8 @@
   "settings": { "message": "Impostazioni" },
   "noData": { "message": "Nessun dato sui tassi — tocca Aggiorna per riprovare" },
   "trendNote": { "message": "Il mini-grafico mostra il tasso di riferimento di mercato (dati: frankfurter.dev / BCE). L'andamento segue da vicino le quotazioni della Banca di Cina; i valori assoluti differiscono leggermente." },
+  "rangeLow": { "message": "Min" },
+  "rangeHigh": { "message": "Max" },
   "win30": { "message": "30 g" },
   "win90": { "message": "90 g" },
   "win365": { "message": "1 a" },

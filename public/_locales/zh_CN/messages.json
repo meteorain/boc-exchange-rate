@@ -27,6 +27,12 @@
     "message": "迷你走势为市场参考价（数据 frankfurter.dev / 欧洲央行），与中行牌价走势相近，绝对数值略有差异。",
     "description": "Footer note clarifying the sparkline data source."
   },
+  "rangeLow": {
+    "message": "区间低"
+  },
+  "rangeHigh": {
+    "message": "区间高"
+  },
   "win30": {
     "message": "30天"
   },

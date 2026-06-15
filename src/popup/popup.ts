@@ -72,7 +72,11 @@ function card(code: string, rate: CurrencyRate, badgeRateType: RateType): HTMLEl
     rates.append(statCell(rateTypeName(type), rate[type], type === badgeRateType));
   }
 
-  article.append(head, rates);
+  // Range slot ("cheap index"): where today sits in the window's low–high band.
+  const range = document.createElement('div');
+  range.className = 'card__range';
+
+  article.append(head, rates, range);
   return article;
 }
 
@@ -181,13 +185,55 @@ function trendCell(points: TrendPoint[]): HTMLElement | null {
   return wrap;
 }
 
-/** Slice the cached year to the active window and (re)paint every trend slot. */
+/** Where the latest value sits in the window's low–high band, as a bar. */
+function rangeCell(points: TrendPoint[]): HTMLElement | null {
+  if (points.length < 2) return null;
+  const values = points.map((p) => p.v);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  if (max === min) return null;
+  const cur = values[values.length - 1];
+  const pos = Math.round(((cur - min) / (max - min)) * 100);
+
+  const wrap = document.createElement('div');
+  wrap.className = 'range';
+  wrap.title = `${chrome.i18n.getMessage('rangeLow')} ${fmtScaled(min)} · ${chrome.i18n.getMessage('rangeHigh')} ${fmtScaled(max)}`;
+
+  const track = document.createElement('div');
+  track.className = 'range__track';
+  const fill = document.createElement('div');
+  fill.className = 'range__fill';
+  fill.style.width = `${pos}%`;
+  const marker = document.createElement('div');
+  marker.className = 'range__marker';
+  marker.style.left = `${pos}%`;
+  track.append(fill, marker);
+
+  const cap = document.createElement('span');
+  cap.className = 'range__cap';
+  cap.textContent = `${pos}%`;
+
+  wrap.append(track, cap);
+  return wrap;
+}
+
+/** Slice the cached year to the active window and (re)paint trend + range. */
 function renderTrends(): void {
   for (const code of trendCodes) {
-    const slot = list.querySelector<HTMLElement>(`.card[data-code="${code}"] .card__trend`);
-    if (!slot) continue;
-    const cell = trendCell(windowed(fullSeries[code] ?? [], windowDays));
-    slot.replaceChildren(...(cell ? [cell] : []));
+    const card = list.querySelector<HTMLElement>(`.card[data-code="${code}"]`);
+    if (!card) continue;
+    const win = windowed(fullSeries[code] ?? [], windowDays);
+
+    const trendSlot = card.querySelector<HTMLElement>('.card__trend');
+    if (trendSlot) {
+      const cell = trendCell(win);
+      trendSlot.replaceChildren(...(cell ? [cell] : []));
+    }
+    const rangeSlot = card.querySelector<HTMLElement>('.card__range');
+    if (rangeSlot) {
+      const cell = rangeCell(win);
+      rangeSlot.replaceChildren(...(cell ? [cell] : []));
+    }
   }
 }
 

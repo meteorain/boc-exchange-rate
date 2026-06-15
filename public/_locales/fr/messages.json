@@ -8,6 +8,8 @@
   "settings": { "message": "Réglages" },
   "noData": { "message": "Aucune donnée — cliquez sur Actualiser pour réessayer" },
   "trendNote": { "message": "Le mini-graphique montre le taux de référence du marché (données : frankfurter.dev / BCE). Sa forme suit de près les cotations de la Banque de Chine ; les valeurs absolues diffèrent légèrement." },
+  "rangeLow": { "message": "Bas" },
+  "rangeHigh": { "message": "Haut" },
   "win30": { "message": "30 j" },
   "win90": { "message": "90 j" },
   "win365": { "message": "1 an" },

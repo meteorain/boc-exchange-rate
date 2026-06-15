@@ -435,6 +435,56 @@ body {
   color: var(--down);
 }
 
+/* ---- range bar ("cheap index") ---- */
+.card__range:empty {
+  display: none;
+}
+
+.range {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.range__track {
+  position: relative;
+  flex: 1;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--surface-2);
+}
+
+.range__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent-soft);
+}
+
+.range__marker {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 2px var(--surface);
+}
+
+.range__cap {
+  flex-shrink: 0;
+  width: 34px;
+  text-align: right;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
 /* ---- hover tooltip ---- */
 .tip {
   position: fixed;

@@ -8,6 +8,8 @@
   "settings": { "message": "Einstellungen" },
   "noData": { "message": "Noch keine Kursdaten — zum erneuten Versuch aktualisieren" },
   "trendNote": { "message": "Die Mini-Grafik zeigt den Markt-Referenzkurs (Daten: frankfurter.dev / EZB). Ihr Verlauf folgt den Kursen der Bank of China eng; die absoluten Werte weichen leicht ab." },
+  "rangeLow": { "message": "Tief" },
+  "rangeHigh": { "message": "Hoch" },
   "win30": { "message": "30 T" },
   "win90": { "message": "90 T" },
   "win365": { "message": "1 J" },

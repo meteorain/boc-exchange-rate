@@ -8,6 +8,8 @@
   "settings": { "message": "Ajustes" },
   "noData": { "message": "Sin datos de tipos — pulsa Actualizar para reintentar" },
   "trendNote": { "message": "El minigráfico muestra el tipo de referencia del mercado (datos: frankfurter.dev / BCE). Su forma sigue de cerca las cotizaciones del Banco de China; los valores absolutos difieren ligeramente." },
+  "rangeLow": { "message": "Mín" },
+  "rangeHigh": { "message": "Máx" },
   "win30": { "message": "30 d" },
   "win90": { "message": "90 d" },
   "win365": { "message": "1 año" },
