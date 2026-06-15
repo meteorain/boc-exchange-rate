@@ -6,7 +6,10 @@ export default defineManifest({
   name: '__MSG_extensionName__',
   description: '__MSG_extensionDesc__',
   version: pkg.version,
-  default_locale: 'zh_CN',
+  // English is the safest fallback for locales we don't ship; Chinese users
+  // still get zh_CN (that folder exists), and it matches the currency-name
+  // fallback in lib/currencies.ts.
+  default_locale: 'en',
   permissions: ['alarms', 'storage', 'notifications', 'sidePanel'],
   host_permissions: ['https://www.boc.cn/', 'https://api.frankfurter.dev/'],
   background: {
