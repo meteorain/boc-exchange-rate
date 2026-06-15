@@ -2,6 +2,7 @@ import './popup.css';
 import { getCache, getSettings, setSettings } from '@/lib/storage';
 import { getTrends, trendSupported, windowed, TREND_WINDOWS } from '@/lib/trend';
 import { initConverter } from './converter';
+import { applyTheme } from '@/lib/theme';
 import { currencyName, rateTypeName, RATE_TYPES } from '@/lib/currencies';
 import type { CurrencyRate, RateType, TrendPoint, WorkerResponse } from '@/lib/types';
 
@@ -220,6 +221,7 @@ function buildWindowToggle(): void {
 
 async function render(): Promise<void> {
   const [cache, settings] = await Promise.all([getCache(), getSettings()]);
+  applyTheme(settings.theme);
   list.replaceChildren();
 
   windowDays = settings.trendDays;

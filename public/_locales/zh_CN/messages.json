@@ -88,6 +88,18 @@
   "updateFrequency": {
     "message": "更新频率"
   },
+  "themeSettings": {
+    "message": "外观主题"
+  },
+  "theme_auto": {
+    "message": "跟随系统"
+  },
+  "theme_light": {
+    "message": "浅色"
+  },
+  "theme_dark": {
+    "message": "深色"
+  },
   "freq10": {
     "message": "10 分钟"
   },

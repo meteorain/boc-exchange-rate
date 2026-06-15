@@ -30,6 +30,8 @@ export interface Settings {
   thresholds: Record<string, Threshold>;
   /** Trend window in days (30 / 90 / 365). */
   trendDays: number;
+  /** UI theme: follow the OS, or force light / dark. */
+  theme: 'auto' | 'light' | 'dark';
 }
 
 /** Cached rate payload, persisted in chrome.storage.local. */

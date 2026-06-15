@@ -11,8 +11,9 @@
   --radius: 14px;
 }
 
+/* Dark palette: auto by OS preference (unless forced light), or forced dark. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
     --bg: #0f1115;
     --surface: #181b21;
     --surface-2: #1f232b;
@@ -23,6 +24,18 @@
     --accent-soft: #1c2840;
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 20px rgba(0, 0, 0, 0.3);
   }
+}
+
+:root[data-theme='dark'] {
+  --bg: #0f1115;
+  --surface: #181b21;
+  --surface-2: #1f232b;
+  --border: #282d36;
+  --text: #e8eaed;
+  --text-muted: #9aa1ab;
+  --accent: #5b8cff;
+  --accent-soft: #1c2840;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 * {

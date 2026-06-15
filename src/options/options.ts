@@ -1,5 +1,6 @@
 import './options.css';
 import { getCache, getSettings, setSettings } from '@/lib/storage';
+import { applyTheme, type Theme } from '@/lib/theme';
 import {
   currencyName,
   rateTypeName,
@@ -9,11 +10,13 @@ import {
 import type { RateType, Settings, Threshold } from '@/lib/types';
 
 const FREQUENCIES = [10, 30, 60, 120] as const;
+const THEMES: Theme[] = ['auto', 'light', 'dark'];
 
 const currencyGrid = document.getElementById('currency-grid') as HTMLElement;
 const badgeCurrencySel = document.getElementById('badge-currency') as HTMLSelectElement;
 const badgeRateTypeBox = document.getElementById('badge-rate-type') as HTMLElement;
 const frequencyBox = document.getElementById('frequency') as HTMLElement;
+const themeBox = document.getElementById('theme') as HTMLElement;
 const thresholdsBox = document.getElementById('thresholds') as HTMLElement;
 const thresholdsEmpty = document.getElementById('thresholds-empty') as HTMLElement;
 const toast = document.getElementById('toast') as HTMLElement;
@@ -188,6 +191,7 @@ async function save(): Promise<void> {
 async function init(): Promise<void> {
   applyI18n();
   const [cache, settings] = await Promise.all([getCache(), getSettings()]);
+  applyTheme(settings.theme);
 
   availableCodes = cache ? Object.keys(cache.rates).sort() : [...CURRENCY_CODES];
   selected = settings.selectedCurrencies.filter((c) => availableCodes.includes(c));
@@ -216,6 +220,19 @@ async function init(): Promise<void> {
     FREQUENCIES.map((f) => ({ value: String(f), label: chrome.i18n.getMessage(`freq${f}`) })),
     String(settings.updateFrequency),
   );
+
+  // Theme applies instantly and persists on change — no Save needed.
+  radioGroup(
+    themeBox,
+    'theme',
+    THEMES.map((t) => ({ value: t, label: chrome.i18n.getMessage(`theme_${t}`) })),
+    settings.theme,
+  );
+  themeBox.addEventListener('change', (e) => {
+    const theme = (e.target as HTMLInputElement).value as Theme;
+    applyTheme(theme);
+    void setSettings({ theme });
+  });
 
   document.getElementById('save')?.addEventListener('click', () => void save());
 }

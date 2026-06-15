@@ -88,6 +88,18 @@
   "updateFrequency": {
     "message": "Update frequency"
   },
+  "themeSettings": {
+    "message": "Appearance"
+  },
+  "theme_auto": {
+    "message": "System"
+  },
+  "theme_light": {
+    "message": "Light"
+  },
+  "theme_dark": {
+    "message": "Dark"
+  },
   "freq10": {
     "message": "10 min"
   },

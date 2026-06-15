@@ -7,6 +7,7 @@ export const DEFAULT_SETTINGS: Settings = {
   updateFrequency: 30,
   thresholds: {},
   trendDays: 30,
+  theme: 'auto',
 };
 
 /** Read user settings, merged over defaults so callers never see undefined. */
