@@ -74,7 +74,43 @@ function card(code: string, rate: CurrencyRate, badgeRateType: RateType): HTMLEl
   return article;
 }
 
-/** Build an inline SVG sparkline from a value series. */
+// Shared hover tooltip, positioned over whichever anchor dot is hovered.
+const tip = document.createElement('div');
+tip.className = 'tip';
+tip.hidden = true;
+document.body.append(tip);
+
+/** Show the market reference value on the BOC board's ×100 scale. */
+function fmtScaled(v: number): string {
+  const s = v * 100;
+  return s >= 100 ? s.toFixed(2) : s.toFixed(4);
+}
+
+function showTip(anchor: Element, p: TrendPoint): void {
+  tip.textContent = `${p.t} · ${fmtScaled(p.v)}`;
+  tip.hidden = false;
+  const a = anchor.getBoundingClientRect();
+  const t = tip.getBoundingClientRect();
+  const left = Math.max(6, Math.min(a.left + a.width / 2 - t.width / 2, window.innerWidth - t.width - 6));
+  const top = a.top - t.height - 6;
+  tip.style.left = `${left}px`;
+  tip.style.top = `${top < 4 ? a.bottom + 6 : top}px`;
+}
+
+const hideTip = (): void => {
+  tip.hidden = true;
+};
+
+function circle(cx: number, cy: number, r: number, cls: string): SVGCircleElement {
+  const c = document.createElementNS(SVG_NS, 'circle');
+  c.setAttribute('cx', cx.toFixed(1));
+  c.setAttribute('cy', cy.toFixed(1));
+  c.setAttribute('r', String(r));
+  c.setAttribute('class', cls);
+  return c;
+}
+
+/** Build an inline SVG sparkline with hoverable first/last/high/low anchors. */
 function sparkline(points: TrendPoint[], rising: boolean): SVGSVGElement {
   const w = 96;
   const h = 24;
@@ -84,12 +120,10 @@ function sparkline(points: TrendPoint[], rising: boolean): SVGSVGElement {
   const max = Math.max(...values);
   const range = max - min || 1;
   const stepX = (w - pad * 2) / (values.length - 1 || 1);
-
-  const coords = values.map((v, i) => {
-    const x = pad + i * stepX;
-    const y = pad + (h - pad * 2) * (1 - (v - min) / range);
-    return `${x.toFixed(1)},${y.toFixed(1)}`;
-  });
+  const xy = values.map((v, i): [number, number] => [
+    pad + i * stepX,
+    pad + (h - pad * 2) * (1 - (v - min) / range),
+  ]);
 
   const svg = document.createElementNS(SVG_NS, 'svg');
   svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
@@ -98,16 +132,28 @@ function sparkline(points: TrendPoint[], rising: boolean): SVGSVGElement {
   svg.classList.add('spark', rising ? 'spark--up' : 'spark--down');
 
   const line = document.createElementNS(SVG_NS, 'polyline');
-  line.setAttribute('points', coords.join(' '));
+  line.setAttribute('points', xy.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' '));
   svg.append(line);
 
-  // Mark the latest point.
-  const last = coords[coords.length - 1].split(',');
-  const dot = document.createElementNS(SVG_NS, 'circle');
-  dot.setAttribute('cx', last[0]);
-  dot.setAttribute('cy', last[1]);
-  dot.setAttribute('r', '1.8');
-  svg.append(dot);
+  // Anchors by priority, deduped by index (e.g. a monotonic series where
+  // first === max). Highest priority wins the dot's colour.
+  const anchors: Array<[index: number, role: string]> = [
+    [values.length - 1, 'last'],
+    [values.indexOf(max), 'max'],
+    [values.indexOf(min), 'min'],
+    [0, 'first'],
+  ];
+  const seen = new Set<number>();
+  for (const [i, role] of anchors) {
+    if (seen.has(i)) continue;
+    seen.add(i);
+    const [x, y] = xy[i];
+    svg.append(circle(x, y, role === 'first' ? 1.4 : 2, `spark__dot spark__dot--${role}`));
+    const hit = circle(x, y, 6, 'spark__hit');
+    hit.addEventListener('mouseenter', () => showTip(hit, points[i]));
+    hit.addEventListener('mouseleave', hideTip);
+    svg.append(hit);
+  }
 
   return svg;
 }

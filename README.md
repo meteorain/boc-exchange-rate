@@ -7,7 +7,7 @@ A Chrome extension (Manifest V3) that shows the Bank of China foreign-exchange b
 ## 功能 Features
 
 - 📊 实时展示中行外汇牌价（现汇/现钞买入卖出价、中行折算价）
-- 📈 每张卡片内嵌近 30 天市场参考走势 sparkline + 涨跌幅
+- 📈 每张卡片内嵌市场参考走势 sparkline + 涨跌幅，可切换 30 / 90 天 / 1 年；悬停起点·当前·最高·最低锚点查看具体数值
 - 🎯 在插件图标角标上固定显示一个你关心的汇率
 - 🔔 汇率突破上限/下限时通知（边沿触发，不刷屏）
 - ⚙️ 自由选择展示币种与更新频率（10 分钟 ~ 2 小时）
