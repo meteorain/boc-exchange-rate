@@ -1,0 +1,21 @@
+[package]
+name = "boc-fx-desktop"
+version = "6.2.0"
+description = "Bank of China exchange-rate menu-bar app"
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-http = "2"
+tauri-plugin-store = "2"
+tauri-plugin-notification = "2"
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true

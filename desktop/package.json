@@ -1,0 +1,23 @@
+{
+  "name": "boc-fx-desktop",
+  "version": "6.2.0",
+  "description": "Bank of China exchange-rate menu-bar app (Tauri).",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-http": "^2",
+    "@tauri-apps/plugin-notification": "^2",
+    "@tauri-apps/plugin-store": "^2"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7"
+  }
+}

@@ -1,0 +1,64 @@
+name: Desktop build
+
+# Heavy (Rust) build — run on demand or when a desktop-* tag is pushed,
+# not on every commit.
+on:
+  workflow_dispatch:
+  push:
+    tags: ['desktop-v*']
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            target: mac
+          - os: windows-latest
+            target: win
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: desktop
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: desktop/src-tauri
+
+      - run: npm ci
+      - run: npm run build
+
+      # Windows: a single portable .exe (no installer).
+      - name: Build Windows portable exe
+        if: matrix.target == 'win'
+        run: npm run tauri build -- --no-bundle
+      - name: Upload Windows exe
+        if: matrix.target == 'win'
+        uses: actions/upload-artifact@v4
+        with:
+          name: boc-fx-windows
+          path: desktop/src-tauri/target/release/boc-fx-desktop.exe
+
+      # macOS: .app bundle + .dmg.
+      - name: Build macOS app
+        if: matrix.target == 'mac'
+        run: npm run tauri build
+      - name: Upload macOS bundles
+        if: matrix.target == 'mac'
+        uses: actions/upload-artifact@v4
+        with:
+          name: boc-fx-macos
+          path: |
+            desktop/src-tauri/target/release/bundle/dmg/*.dmg
+            desktop/src-tauri/target/release/bundle/macos/*.app

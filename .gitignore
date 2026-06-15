@@ -2,3 +2,7 @@ node_modules/
 dist/
 *.zip
 .DS_Store
+
+# Rust / Tauri build output
+target/
+desktop/src-tauri/gen/
