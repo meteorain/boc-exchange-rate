@@ -13,7 +13,31 @@ const updated = document.getElementById('updated') as HTMLElement;
 const windowEl = document.getElementById('window') as HTMLElement;
 const empty = document.getElementById('empty') as HTMLElement;
 const foot = document.getElementById('foot') as HTMLElement;
+const notice = document.getElementById('notice') as HTMLElement;
 const refreshBtn = document.getElementById('refresh') as HTMLButtonElement;
+
+/** Today's date in Beijing time as "YYYY/MM/DD", matching the board format. */
+function beijingToday(): string {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Shanghai' })
+    .format(new Date())
+    .replace(/-/g, '/');
+}
+
+/** Show a stale-data warning or a market-closed note, or nothing. */
+function updateNotice(fetchedAt: number, publishDay: string, frequency: number): void {
+  const ageMin = (Date.now() - fetchedAt) / 60000;
+  if (ageMin > Math.max(frequency * 3, 90)) {
+    notice.className = 'notice notice--warn';
+    notice.textContent = chrome.i18n.getMessage('staleNote');
+    notice.hidden = false;
+  } else if (publishDay && publishDay !== beijingToday()) {
+    notice.className = 'notice';
+    notice.textContent = chrome.i18n.getMessage('closedNote');
+    notice.hidden = false;
+  } else {
+    notice.hidden = true;
+  }
+}
 
 // A full year of series is fetched once; the window toggle just re-slices it.
 let fullSeries: Record<string, TrendPoint[]> = {};
@@ -276,9 +300,12 @@ async function render(): Promise<void> {
     empty.hidden = false;
     foot.hidden = true;
     windowEl.hidden = true;
+    notice.hidden = true;
     updated.textContent = '';
     return;
   }
+
+  updateNotice(cache.fetchedAt, cache.rates[codes[0]].DATETIME?.slice(0, 10) ?? '', settings.updateFrequency);
 
   empty.hidden = true;
   const hasTrend = codes.some(trendSupported);

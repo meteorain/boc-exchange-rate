@@ -1,4 +1,10 @@
 {
+  "staleNote": {
+    "message": "Data may be stale — click refresh"
+  },
+  "closedNote": {
+    "message": "Market closed — showing the latest trading day"
+  },
   "searchPlaceholder": {
     "message": "Search currency…"
   },

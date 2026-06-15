@@ -1,4 +1,6 @@
 {
+  "staleNote": { "message": "Daten evtl. veraltet — aktualisieren" },
+  "closedNote": { "message": "Markt geschlossen — letzter Handelstag angezeigt" },
   "searchPlaceholder": { "message": "Währung suchen…" },
   "extensionName": { "message": "Bank of China — Wechselkurse" },
   "extensionDesc": { "message": "Wechselkurse der Bank of China in Echtzeit. Wähle die angezeigten Währungen, hefte den für dich wichtigen Kurs an das Symbol der Symbolleiste und erhalte Benachrichtigungen bei Schwellenwerten. Basiert auf Manifest V3." },

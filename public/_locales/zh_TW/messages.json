@@ -1,4 +1,6 @@
 {
+  "staleNote": { "message": "資料可能已過期，點重新整理重試" },
+  "closedNote": { "message": "市場休市中，顯示最近交易日牌價" },
   "searchPlaceholder": { "message": "搜尋幣別…" },
   "extensionName": { "message": "中國銀行外匯匯率牌價" },
   "extensionDesc": { "message": "中行匯率助手：即時顯示人民幣對各主要貨幣的外匯牌價。可自由設定顯示幣別、在外掛圖示上釘選你最關心的匯率，並支援匯率門檻提醒。基於 Manifest V3 開發。" },

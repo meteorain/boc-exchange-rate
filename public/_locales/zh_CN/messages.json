@@ -1,4 +1,10 @@
 {
+  "staleNote": {
+    "message": "数据可能已过期，点刷新重试"
+  },
+  "closedNote": {
+    "message": "市场休市中，显示最近交易日牌价"
+  },
   "searchPlaceholder": {
     "message": "搜索币种…"
   },

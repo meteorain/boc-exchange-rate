@@ -1,4 +1,6 @@
 {
+  "staleNote": { "message": "Datos quizá obsoletos — actualiza" },
+  "closedNote": { "message": "Mercado cerrado — último día de cotización" },
   "searchPlaceholder": { "message": "Buscar divisa…" },
   "extensionName": { "message": "Banco de China — tipos de cambio" },
   "extensionDesc": { "message": "Tipos de cambio del Banco de China en tiempo real. Elige las divisas que se muestran, fija el tipo que te interesa en la insignia de la barra de herramientas y recibe avisos al cruzar un umbral. Basado en Manifest V3." },

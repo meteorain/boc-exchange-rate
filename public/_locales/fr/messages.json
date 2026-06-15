@@ -1,4 +1,6 @@
 {
+  "staleNote": { "message": "Données peut-être obsolètes — actualisez" },
+  "closedNote": { "message": "Marché fermé — dernier jour de cotation affiché" },
   "searchPlaceholder": { "message": "Rechercher une devise…" },
   "extensionName": { "message": "Banque de Chine — taux de change" },
   "extensionDesc": { "message": "Taux de change de la Banque de Chine en temps réel. Choisissez les devises affichées, épinglez le taux qui vous intéresse sur le badge de la barre d'outils et recevez des alertes au franchissement d'un seuil. Basé sur Manifest V3." },
