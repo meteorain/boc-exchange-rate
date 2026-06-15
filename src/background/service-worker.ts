@@ -1,19 +1,24 @@
 import { fetchRates } from '@/lib/boc';
 import { getTrends } from '@/lib/trend';
+import { recordSnapshot, previousValue, dayOf, type BoardHistory } from '@/lib/history';
 import { getSettings, getCache, setCache } from '@/lib/storage';
 import { currencyName, CURRENCY_EMOJI } from '@/lib/currencies';
 import type { RatesMap, Settings, WorkerMessage, WorkerResponse } from '@/lib/types';
 
 const ALARM_NAME = 'fetchExchangeRates';
-const BADGE_COLOR = '#2563eb';
+// Badge background encodes the day's direction (red up / green down, CN style).
+const BADGE_FLAT = '#2563eb';
+const BADGE_UP = '#e5484d';
+const BADGE_DOWN = '#30a46c';
 
 /** Fetch the latest rates, cache them, refresh the badge and fire alerts. */
 async function refreshRates(): Promise<void> {
   const rates = await fetchRates();
   await setCache({ rates, fetchedAt: Date.now() });
+  const history = await recordSnapshot(rates);
 
   const settings = await getSettings();
-  await updateBadge(rates, settings);
+  await updateBadge(rates, settings, history);
   await checkThresholds(rates, settings);
 
   // Keep the market-trend cache warm; self-throttled and never fatal.
@@ -26,8 +31,13 @@ function formatBadge(rate: number): string {
   return rate.toFixed(rate >= 100 ? 0 : 2).slice(0, 4);
 }
 
-async function updateBadge(rates: RatesMap, settings: Settings): Promise<void> {
-  const rate = rates[settings.badgeCurrency]?.[settings.badgeRateType];
+async function updateBadge(
+  rates: RatesMap,
+  settings: Settings,
+  history: BoardHistory,
+): Promise<void> {
+  const current = rates[settings.badgeCurrency];
+  const rate = current?.[settings.badgeRateType];
 
   if (rate == null) {
     await chrome.action.setBadgeText({ text: '' });
@@ -35,11 +45,24 @@ async function updateBadge(rates: RatesMap, settings: Settings): Promise<void> {
     return;
   }
 
-  const datetime = rates[settings.badgeCurrency]?.DATETIME ?? '';
-  await chrome.action.setBadgeBackgroundColor({ color: BADGE_COLOR });
+  // Compare with the previous publish day to colour the badge.
+  const prev = previousValue(
+    history[settings.badgeCurrency],
+    settings.badgeRateType,
+    dayOf(current.DATETIME),
+  );
+  let color = BADGE_FLAT;
+  let change = '';
+  if (prev != null && prev !== 0 && rate !== prev) {
+    const up = rate > prev;
+    color = up ? BADGE_UP : BADGE_DOWN;
+    change = `  ${up ? '▲' : '▼'}${(Math.abs((rate - prev) / prev) * 100).toFixed(2)}%`;
+  }
+
+  await chrome.action.setBadgeBackgroundColor({ color });
   await chrome.action.setBadgeText({ text: formatBadge(rate) });
   await chrome.action.setTitle({
-    title: `${currencyName(settings.badgeCurrency)} · ${rate}  @ ${datetime}`,
+    title: `${currencyName(settings.badgeCurrency)} · ${rate}${change}  @ ${current.DATETIME ?? ''}`,
   });
 }
 
