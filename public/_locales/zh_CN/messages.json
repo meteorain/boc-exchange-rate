@@ -1,0 +1,90 @@
+{
+  "extensionName": {
+    "message": "中国银行外汇汇率牌价"
+  },
+  "extensionDesc": {
+    "message": "中行汇率助手：实时展示人民币对各主要货币的外汇牌价。可自由配置展示币种、在插件图标上显示你最关心的汇率，并支持汇率阈值提醒。基于 Manifest V3 开发。"
+  },
+  "header": {
+    "message": "中国银行外汇牌价"
+  },
+  "optionsTitle": {
+    "message": "中行外汇牌价 · 设置"
+  },
+  "updatedAt": {
+    "message": "更新于"
+  },
+  "refresh": {
+    "message": "刷新"
+  },
+  "settings": {
+    "message": "设置"
+  },
+  "noData": {
+    "message": "暂无汇率数据，点击刷新重试"
+  },
+  "selectCurrency": {
+    "message": "展示币种"
+  },
+  "selectCurrencyHint": {
+    "message": "点击选择要在弹窗中展示的货币，顺序即展示顺序。"
+  },
+  "badgeSettings": {
+    "message": "图标角标"
+  },
+  "badgeCurrency": {
+    "message": "角标显示的币种"
+  },
+  "badgeRateType": {
+    "message": "角标显示的汇率类型"
+  },
+  "thresholdSettings": {
+    "message": "汇率提醒"
+  },
+  "thresholdHint": {
+    "message": "当汇率首次突破上限或下限时发送一次通知。",
+    "description": "Edge-triggered notification hint."
+  },
+  "thresholdEmpty": {
+    "message": "先在上方选择币种，即可为其设置提醒。"
+  },
+  "highThreshold": {
+    "message": "上限"
+  },
+  "lowThreshold": {
+    "message": "下限"
+  },
+  "updateFrequency": {
+    "message": "更新频率"
+  },
+  "freq10": {
+    "message": "10 分钟"
+  },
+  "freq30": {
+    "message": "30 分钟"
+  },
+  "freq60": {
+    "message": "1 小时"
+  },
+  "freq120": {
+    "message": "2 小时"
+  },
+  "save": {
+    "message": "保存设置"
+  },
+  "alertSaved": {
+    "message": "设置已保存"
+  },
+  "notificationTitle": {
+    "message": "汇率提醒"
+  },
+  "notificationRate": {
+    "message": "当前汇率"
+  },
+  "notificationAbove": {
+    "message": "已突破上限"
+  },
+  "notificationBelow": {
+    "message": "已跌破下限"
+  }
+}

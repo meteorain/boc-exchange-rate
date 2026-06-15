@@ -1,0 +1,90 @@
+{
+  "extensionName": {
+    "message": "Bank of China Exchange Rates"
+  },
+  "extensionDesc": {
+    "message": "Live Bank of China FX board: CNY rates against major currencies. Choose which currencies to show, pin the rate you care about on the toolbar badge, and get alerts when a rate crosses your threshold. Built on Manifest V3."
+  },
+  "header": {
+    "message": "Bank of China FX Rates"
+  },
+  "optionsTitle": {
+    "message": "BOC FX Rates · Settings"
+  },
+  "updatedAt": {
+    "message": "Updated"
+  },
+  "refresh": {
+    "message": "Refresh"
+  },
+  "settings": {
+    "message": "Settings"
+  },
+  "noData": {
+    "message": "No rate data yet — click refresh to retry"
+  },
+  "selectCurrency": {
+    "message": "Displayed currencies"
+  },
+  "selectCurrencyHint": {
+    "message": "Tap to choose which currencies appear in the popup. Selection order is display order."
+  },
+  "badgeSettings": {
+    "message": "Toolbar badge"
+  },
+  "badgeCurrency": {
+    "message": "Badge currency"
+  },
+  "badgeRateType": {
+    "message": "Badge rate type"
+  },
+  "thresholdSettings": {
+    "message": "Rate alerts"
+  },
+  "thresholdHint": {
+    "message": "Sends one notification the first time a rate crosses your high or low bound.",
+    "description": "Edge-triggered notification hint."
+  },
+  "thresholdEmpty": {
+    "message": "Select a currency above to set an alert for it."
+  },
+  "highThreshold": {
+    "message": "High"
+  },
+  "lowThreshold": {
+    "message": "Low"
+  },
+  "updateFrequency": {
+    "message": "Update frequency"
+  },
+  "freq10": {
+    "message": "10 min"
+  },
+  "freq30": {
+    "message": "30 min"
+  },
+  "freq60": {
+    "message": "1 hour"
+  },
+  "freq120": {
+    "message": "2 hours"
+  },
+  "save": {
+    "message": "Save settings"
+  },
+  "alertSaved": {
+    "message": "Settings saved"
+  },
+  "notificationTitle": {
+    "message": "Rate alert"
+  },
+  "notificationRate": {
+    "message": "current rate"
+  },
+  "notificationAbove": {
+    "message": "rose above"
+  },
+  "notificationBelow": {
+    "message": "fell below"
+  }
+}
