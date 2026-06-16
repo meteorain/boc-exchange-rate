@@ -42,3 +42,8 @@ export async function setBadge(
 ): Promise<void> {
   await invoke('set_badge', { rgba, width, height, title });
 }
+
+/** Fire when the settings window saves (it bumps the settingsVersion key). */
+export async function onSettingsChange(cb: () => void): Promise<void> {
+  await (await getStore()).onKeyChange('settingsVersion', () => cb());
+}

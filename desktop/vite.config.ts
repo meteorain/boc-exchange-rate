@@ -10,6 +10,16 @@ export default defineConfig({
     },
   },
   clearScreen: false,
-  build: { outDir: 'dist', emptyOutDir: true, target: 'esnext' },
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+    target: 'esnext',
+    rollupOptions: {
+      input: {
+        main: fileURLToPath(new URL('./index.html', import.meta.url)),
+        settings: fileURLToPath(new URL('./settings.html', import.meta.url)),
+      },
+    },
+  },
   server: { port: 1420, strictPort: true },
 });

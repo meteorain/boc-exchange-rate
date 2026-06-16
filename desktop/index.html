@@ -9,21 +9,63 @@
   <body>
     <div class="toolbar">
       <span id="updated" class="updated"></span>
-      <button id="refresh" class="icon-btn" type="button" data-i18n-title="refresh">
-        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-          <path
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M21 12a9 9 0 1 1-2.64-6.36M21 4v5h-5"
-          />
-        </svg>
-      </button>
+      <div class="toolbar__right">
+        <button id="calc" class="icon-btn" type="button" data-i18n-title="converter">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+            <rect x="5" y="3" width="14" height="18" rx="2.5" fill="none" stroke="currentColor" stroke-width="2" />
+            <path d="M9 7.5h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path d="M9.5 12h0M14.5 12h0M9.5 16h0M14.5 16h0" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+          </svg>
+        </button>
+        <div id="window" class="segbar" role="group"></div>
+        <button id="refresh" class="icon-btn" type="button" data-i18n-title="refresh">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+            <path
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 12a9 9 0 1 1-2.64-6.36M21 4v5h-5"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
 
+    <p id="notice" class="notice" hidden></p>
+
+    <section id="converter" class="converter" aria-hidden="true">
+      <div class="converter__inner">
+        <div class="converter__head">
+          <div id="conv-cash" class="segbar" role="group"></div>
+          <div id="conv-quick" class="conv__quick"></div>
+        </div>
+        <div class="conv__io">
+          <input id="conv-amount" class="conv__amount" type="number" inputmode="decimal" min="0" value="100" />
+          <select id="conv-from" class="conv__cur"></select>
+        </div>
+        <button id="conv-swap" class="conv__swap" type="button" data-i18n-title="convSwap">
+          <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+            <path d="M7 4v13m0 0-3-3m3 3 3-3M17 20V7m0 0-3 3m3-3 3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div class="conv__io">
+          <span id="conv-out" class="conv__out"></span>
+          <select id="conv-to" class="conv__cur"></select>
+          <button id="conv-copy" class="conv__copy" type="button" data-i18n-title="convCopy">
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+              <rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2" />
+              <path d="M5 15V5a2 2 0 0 1 2-2h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+        <p id="conv-rate" class="conv__rate"></p>
+      </div>
+    </section>
+
     <main id="list" class="list"></main>
+    <footer id="foot" class="foot" data-i18n="trendNote"></footer>
 
     <script type="module" src="/src/main.ts"></script>
   </body>

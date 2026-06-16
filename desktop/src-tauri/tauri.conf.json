@@ -20,6 +20,16 @@
         "minWidth": 340,
         "resizable": true,
         "visible": true
+      },
+      {
+        "label": "settings",
+        "url": "settings.html",
+        "title": "设置",
+        "width": 640,
+        "height": 760,
+        "minWidth": 420,
+        "resizable": true,
+        "visible": false
       }
     ],
     "security": {
