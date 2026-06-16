@@ -49,7 +49,7 @@ const T = {
     deskT: '桌面应用',
     deskD: 'macOS · Windows。菜单栏 / 托盘常驻,系统通知提醒。',
     deskBtn: '下载桌面版',
-    deskNote: 'Windows 便携版 / 安装版(通知功能需安装版)· 基于 Tauri',
+    deskNote: 'macOS 首次右键「打开」· Windows 通知需安装版',
     privEyebrow: '隐私优先',
     privTitle: '你的数据,留在你的设备上。',
     privBody:
@@ -111,7 +111,7 @@ const T = {
     deskT: 'Desktop app',
     deskD: 'macOS · Windows. Lives in the menu bar / tray, native notifications.',
     deskBtn: 'Download',
-    deskNote: 'Windows portable / installer (notifications need the installer) · Tauri',
+    deskNote: 'macOS: right-click → Open first · Windows: notifications need the installer',
     privEyebrow: 'Privacy first',
     privTitle: 'Your data stays on your device.',
     privBody:

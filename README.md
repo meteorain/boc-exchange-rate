@@ -15,6 +15,9 @@ A small toolkit that shows the Bank of China FX board in real time — a **brows
 | macOS 桌面版 | [GitHub Releases](https://github.com/meteorain/boc-fx-rates/releases) · `.dmg` |
 | Windows 桌面版 | [GitHub Releases](https://github.com/meteorain/boc-fx-rates/releases) · 便携版 `.exe` / 安装版 `*-setup.exe` |
 
+> 🍎 **macOS 首次打开**:应用未做 Apple 公证,首次会提示"无法验证开发者"——**右键点 App →「打开」**一次即可(之后正常双击)。
+> _EN: Not Apple-notarized; on first launch right-click the app → **Open** once (normal double-click afterwards)._
+
 > ⚠️ **Windows 用户请注意:便携版收不到通知**
 > 免安装的「便携版」单个 `.exe`,在 Windows 上**收不到任何通知**(汇率变化、阈值提醒、每日摘要都收不到)。这是 Windows 系统的限制——它只给"正式安装过"的程序发通知。**想要通知,请下载「安装版」(`*-setup.exe`),安装后使用。** macOS 没有这个问题。
 > _EN: The portable `.exe` cannot show notifications on Windows (a Windows limitation); install the `*-setup.exe` build if you want them. macOS is unaffected._

@@ -1,5 +1,5 @@
 {
-  "name": "boc-exchange-rate",
+  "name": "boc-fx-rates",
   "version": "6.2.0",
   "description": "Bank of China currency exchange rate Chrome extension (Manifest V3).",
   "type": "module",
@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "zip": "cd dist && zip -r ../boc-exchange-rate.zip ."
+    "zip": "cd dist && zip -r ../boc-fx-rates-extension.zip ."
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.31",

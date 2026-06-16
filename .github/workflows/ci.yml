@@ -34,5 +34,5 @@ jobs:
       - name: Upload extension artifact
         uses: actions/upload-artifact@v4
         with:
-          name: boc-exchange-rate
+          name: boc-fx-rates-extension
           path: dist
