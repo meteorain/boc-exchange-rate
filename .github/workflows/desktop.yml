@@ -39,16 +39,21 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      # Windows: a single portable .exe (no installer).
-      - name: Build Windows portable exe
+      # Windows: ship BOTH a portable .exe and an NSIS installer.
+      # The installer registers an AppUserModelID via its Start-Menu shortcut,
+      # which Windows requires for toast notifications; the bare portable exe
+      # has no shortcut/AUMID, so it cannot show notifications.
+      - name: Build Windows (portable exe + installer)
         if: matrix.target == 'win'
-        run: npm run tauri build -- --no-bundle
-      - name: Upload Windows exe
+        run: npm run tauri build -- --bundles nsis
+      - name: Upload Windows artifacts
         if: matrix.target == 'win'
         uses: actions/upload-artifact@v4
         with:
           name: boc-fx-windows
-          path: desktop/src-tauri/target/release/boc-fx-desktop.exe
+          path: |
+            desktop/src-tauri/target/release/boc-fx-desktop.exe
+            desktop/src-tauri/target/release/bundle/nsis/*-setup.exe
 
       # macOS: .app bundle + .dmg.
       - name: Build macOS app

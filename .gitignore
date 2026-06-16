@@ -1,6 +1,7 @@
 node_modules/
 dist/
 *.zip
+!website/boc-fx-rates-extension.zip
 .DS_Store
 
 # Rust / Tauri build output
